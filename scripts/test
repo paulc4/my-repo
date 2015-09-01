@@ -1,0 +1,2 @@
+echo "Hello World!"
+echo "Test executed [OK]" > test.log
