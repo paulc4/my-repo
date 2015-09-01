@@ -151,9 +151,17 @@ Click the + button on the right to run the job (run the flow).
 
 It will go orange (running) and then green (succeeded).  If it goes red, the job failed.
 
-Click on the run number (1) and then click on my-repo and unit to show their output.  You should see this:
+The run number (#1) will have appeared and so will the steps.  Click on my-repo and unit to make them show their output.  You should see this:
 
 ![Jobs Output](https://github.com/paulc4/my-repo/blob/master/screenshots/job-output.png)
+
+## Using the Web Interface
+
+I did not find this very intuitive.  The Home (house) icon takes you to the home page for the _current pipeline_.  Even going explicitly to [http://192.168.100.4:8080/](http://192.168.100.4:8080/) shows you the last pipeline used.
+
+Once you have multiple pipelines you can see them by clicking on the tripple bar icon at the top _left_ (next to the house icon).  Select the pipeline you want.
+
+The so-called "Hamburger" icon (the triple bars on the top _right_) shows you the builds that you have run.
 
 # Online Documentation
 
@@ -177,7 +185,8 @@ jobs:
 ```
 
 The `say-hello` task is defined using the config sub-element instead of a YAML file.  Hence this flow requires no resources.
-It appears in the GUI as a single grey box which doesn't look like a floe at all (since it has no inputs or outputs).
+
+As a result, this flow appears in the GUI as a single grey box which doesn't look like a flow at all (since it has no inputs or outputs).
 
 Whilst this is a nice simple first example, it is not typical and I found it more confusing than helpful.
 
