@@ -12,10 +12,10 @@ To run Concourse you need:
 
 1. To run it in a Virtual Machine using Vagrant and Virtual box. In any directory run:
  
-```
-  vagrant init concourse/lite # creates ./Vagrantfile
-  vagrant up                  # downloads the box & spins up the VM
-```
+   ```
+   vagrant init concourse/lite # creates ./Vagrantfile
+   vagrant up                  # downloads the box & spins up the VM
+   ```
 
 1. You can then access its web interface in any browser at [http://192.168.100.4:8080](http://192.168.100.4:8080)
 
