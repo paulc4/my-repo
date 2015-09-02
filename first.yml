@@ -1,3 +1,5 @@
+---
+# Simple flow that runs a test script
 resources:
 - name: my-repo
   type: git
