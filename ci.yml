@@ -1,3 +1,5 @@
+---
+# A script that runs a maven Docker image
 resources:
 - name: my-repo
   type: git

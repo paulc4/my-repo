@@ -1,5 +1,6 @@
 ---
-# Simple flow that runs a test script
+# Simple flow that runs a test script, see
+#   https://github.com/paulc4/my-repo/blob/master/UsingConcourse.md
 resources:
 - name: my-repo
   type: git
@@ -14,4 +15,4 @@ jobs:
   - get: my-repo
     trigger: true
   - task: unit
-    file: my-repo/ci/ci-task.yml
+    file: my-repo/ci/test-task.yml
