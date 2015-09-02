@@ -1,0 +1,14 @@
+resources:
+- name: my-repo
+  type: git
+  source:
+    uri: https://github.com/paulc4/my-repo
+    branch: master
+
+jobs:
+- name: ci-pipeline
+  plan:
+  - get: my-repo
+    trigger: true
+  - task: unit
+    file: my-repo/ci/ci-task.yml

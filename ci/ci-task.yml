@@ -1,0 +1,11 @@
+---
+platform: linux
+
+image: docker:///maven
+
+inputs:
+- name: my-repo
+
+run:
+  path: my-repo/scripts/ci-test
+
