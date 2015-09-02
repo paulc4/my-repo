@@ -2,9 +2,9 @@
 
 # What is it?
 
-Concourse is really just a flow definition tool a bit like Spring XD excpet instead of a DSL it uses a YAML description file.  Yes we have moved on from boring, tedious XML to boring, tedious YAML! Although the flow can be visualised once specified in the sexy web GUI, you can't define it that way.
+Concourse is really just a flow definition tool a bit like Spring XD excpet instead of a DSL it uses a YAML description file. Although the flow can be visualised, once specified, in the cool web GUI, you can't define it that way.
 
-I found the documentation was not really clear until you knew what it was trying to explain, so here is a quick overview on how to use Concourse.
+I personally found the documentation was not really clear until you knew what it was trying to explain, so here is a quick overview on how to use Concourse.
 
 # Getting Started
 
@@ -48,7 +48,7 @@ run:
   path: my-repo/scripts/test
 ```
 
-Note that the task is actually executed by a Docker container, so I guess the Concourse VM has Docker installed internally.  Running Docker each time is pretty slow.
+Note that the task is actually executed by a Docker container, so I guess the Concourse VM has Docker installed internally.
 
 This task runs the `test` script in `myrepo`.  Which brings us to resources.
 
@@ -61,17 +61,17 @@ resources:
 - name: my-repo
   type: git
   source:
-    uri: git@github.com:my-user/my-repo.git
+    uri: https://github.com/paulc4/my-repo
     branch: master
 ``` 
 
-To keep things simple for now, let's just assume this Git repository is public.
+To keep things simple for now, let's just assume this Github repository is public, like this one.
 
 The script we want to run is in `my-repo/scripts`.
 
 Thus to modify the task, modify `my-repo/scripts/test`, push the change and rerun the job.
 
-Several types of predefined resources are provided by Concourse, including `git`.  If you look at the Concourse [github project](https://github.com/concourse?query=resource) you will see several resource sub-projects for both inout (getting docker images, pulling from git, fetching data from Amazon S3) or output (pushing to Cloud Foundry, saving to S3).
+Several types of predefined resources are provided by Concourse, including `git`.  If you look at the Concourse [github project](https://github.com/concourse?query=resource) you will see several resource sub-projects for both input (getting docker images, pulling from git, fetching data from Amazon S3) and output (pushing to Cloud Foundry, saving to S3).
 
 ## Jobs
 
@@ -82,14 +82,14 @@ resources:
 - name: my-repo
   type: git
   source:
-    uri: git@github.com:<github-id>/my-repo.git
+    uri: https://github.com/paulc4/my-repo
     branch: master
 
 jobs:
 - name: test-pipeline
-  - get: my-repo  # Fetch the resource
-    trigger: true
-  - task: unit    # Run the unit test
+  - get: my-repo   # Fetch the resource
+    trigger: true  # Rerun automatically if repo changes
+  - task: unit     # Run the unit test
     file: my-repo/ci/test-task.yml
 ```
 
@@ -98,7 +98,7 @@ Note:
 1. `my-repo` contains both the test script (`my-repo/scripts/test`) and the task (`my-repo/ci/test-task.yml`) to run it.
 1. The task name `unit` is arbitrary.  There are _no_ predefined tasks.
 
-A jon consists of one or more "steps".  Just a few of the predefined job-steps are:
+A job consists of one or more "steps".  Just a few of the predefined job-steps are:
 
 1. `get`: fetch a resource
 1. `put`: update a resource
@@ -157,11 +157,11 @@ The run number (#1) will have appeared and so will the steps.  Click on my-repo 
 
 ## Using the Web Interface
 
-I did not find this very intuitive.  The Home (house) icon takes you to the home page for the _current pipeline_.  Even going explicitly to [http://192.168.100.4:8080/](http://192.168.100.4:8080/) shows you the last pipeline used.
+Takes a bit of getting used to.  The Home (house) icon takes you to the home page for the _current pipeline_.  Even going explicitly to [http://192.168.100.4:8080/](http://192.168.100.4:8080/) shows you the last pipeline used.
 
 Once you have multiple pipelines you can see them by clicking on the tripple bar icon at the top _left_ (next to the house icon).  Select the pipeline you want.
 
-The so-called "Hamburger" icon (the triple bars on the top _right_) shows you the builds that you have run.
+The other triple bar icin (on the top _right_) shows you the builds that you have run.
 
 # Online Documentation
 
@@ -184,11 +184,11 @@ jobs:
         args: ["Hello, world!"]
 ```
 
-The `say-hello` task is defined using the config sub-element instead of a YAML file.  Hence this flow requires no resources.
+The `say-hello` task is defined using the `config` sub-element instead of a YAML file.  Hence this flow requires no resources.
 
-As a result, this flow appears in the GUI as a single grey box which doesn't look like a flow at all (since it has no inputs or outputs).
+As a result, this flow appears in the Web GUI as a single grey box which doesn't look like a flow at all (since it has no input or output resources).
 
-Whilst this is a nice simple first example, it is not typical and I found it more confusing than helpful.
+Whilst this is a nice simple first example, it is not typical and, personally, I found it more confusing than helpful.
 
 
 
